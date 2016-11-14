@@ -3,19 +3,21 @@
 const express = require('express');
 const router = express.Router();
 
-router.use(express.static('./public'));
+//router.use(express.static('./public'));
 
 router.get('/', function(req, res){
-  res.render('index'); //?
+  //res.redirect('/');
+  res.redirect('/'); //?
+  
 });
 
 router.post('/', function (req, res) {
-  const newPage = req.body.content; //need to require body-parser
+  //const newPage = req.body.content; //need to require body-parser
   res.send('Successful page creation!');
 });
 
-router.get('wiki/add/', function (req, res) {
-  res.send('Create a page!');
+router.get('/add', function (req, res) {
+  res.render('../views/addpage.html');
 });
 
-module.export = router;
+module.exports = router;

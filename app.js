@@ -10,6 +10,10 @@ const models = require('./models');
 
 app.use('/wiki', wikiRouter);
 
+app.use('/', function(req, res){
+	res.render('../views/index.html'); 
+});
+
 app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
