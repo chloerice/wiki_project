@@ -12,7 +12,8 @@ var Page = db.define('page',
     urlTitle: {
       type: Sequelize.STRING,
       isURL: true,
-      allowNull: false
+      allowNull: false,
+      defaultValue: replace(this.title)
     },
     content: {
       type: Sequelize.TEXT,
@@ -29,6 +30,7 @@ var Page = db.define('page',
   {
     getterMethods: {
       route: function () { return '/wiki/' + this.urlTitle }
+      replace: function(str) { return str.replace(/\s/g, '_') }
     }
 });
 

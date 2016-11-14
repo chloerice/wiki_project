@@ -8,15 +8,24 @@ const models = require('./models');
 
 //app.use('/', routes);
 
-app.use('/wiki', wikiRouter);
-
-app.use('/', function(req, res){
-	res.render('../views/index.html');
-});
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
+
+app.use('/wiki', wikiRouter);
+
+app.use('/', function(req, res){
+	res.render('index.html');
+});
+
+
+app.use( function(err, req, res, next){
+	res.render('error.html', {error: err});
+});
+
 
 models.User.sync()
 .then(function () {
