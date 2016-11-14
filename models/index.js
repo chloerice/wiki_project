@@ -30,7 +30,9 @@ var Page = db.define('page',
   {
     getterMethods: {
       route: function () { return '/wiki/' + this.urlTitle }
-      replace: function(str) { return str.replace(/\s/g, '_') }
+      replace: function() { var urlstring = this.title.replace(/\s/g, '_');
+                            return urlstring;
+       }
     }
 });
 
