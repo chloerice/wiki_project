@@ -11,16 +11,16 @@ const models = require('./models');
 app.use('/wiki', wikiRouter);
 
 app.use('/', function(req, res){
-	res.render('../views/index.html'); 
+	res.render('../views/index.html');
 });
 
 app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
 
-models.Page.sync()
+models.User.sync()
 .then(function () {
-  return models.User.sync()
+  return models.Page.sync()
 })
 .then(function () {
   app.listen(1337, function () {
