@@ -13,7 +13,6 @@ var Page = db.define('page',
       type: Sequelize.STRING,
       isURL: true,
       allowNull: false,
-      defaultValue: replace(this.title)
     },
     content: {
       type: Sequelize.TEXT,
@@ -29,10 +28,14 @@ var Page = db.define('page',
   },
   {
     getterMethods: {
-      route: function () { return '/wiki/' + this.urlTitle }
-      replace: function() { var urlstring = this.title.replace(/\s/g, '_');
-                            return urlstring;
-       }
+      route: function () {
+        return '/wiki/' + this.urlTitle
+      }
+    },
+    hooks: {
+      beforeValidate: function(page) {
+        page.urlTitle = req.body.title.replace(/\s/g, '_').replace(/[^a-z0-9]/ig, "");
+      }
     }
 });
 
@@ -44,7 +47,10 @@ var User = db.define('user', {
   },
 	email: {
     type: Sequelize.STRING,
-    isEmail: true,
+    unique: true,
+    validate: {
+      isEmail: true //gets validated at the application level
+    },
     allowNull: false
   }
 });
