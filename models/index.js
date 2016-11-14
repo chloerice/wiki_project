@@ -1,14 +1,49 @@
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://localhost:5432/wikistack');
 
-var Page = Sequelize.define('page', {
-	title: Sequelize.STRING,
-	urlTitle: Sequelize.STRING,
-	content: Sequelize.TEXT,
-	status: Sequelize.STRING
-})
+var Page = db.define('page',
+  {
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    urlTitle: {
+      type: Sequelize.STRING,
+      isURL: true,
+      allowNull: false
+    },
+    content: {
+      type: Sequelize.TEXT,
+      allowNull: false
+    },
+    status: {
+      type: Sequelize.ENUM('open', 'closed')
+    },
+    date: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    }
+  },
+  {
+    getterMethods: {
+      route: function () { return '/wiki/' + this.urlTitle }
+    }
+});
 
-var User = Sequelize.define('user', {
-	name: Sequelize.STRING,
-	email: Sequelize.STRING
-})
+var User = db.define('user', {
+	name: {
+    is: ["^[a-z]+$", 'i'],
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+	email: {
+    type: Sequelize.STRING,
+    isEmail: true,
+    allowNull: false
+  }
+});
+
+module.exports = {
+  Page: Page,
+  User: User
+};
