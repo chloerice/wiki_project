@@ -5,23 +5,20 @@
   <hr>
   <form method="POST" action="/wiki/">
 
-    <!-- AUTHOR NAME FIELD-->
-    <div>
-      <label for="name" class="col-sm-2 control-label">Author Name</label>
+    <div class="form-group">
+      <label for="authorName" class="col-sm-2 control-label">Author Name</label>
       <div class="col-sm-10">
-        <input name="name" type="text" class="form-control"/>
+        <input name="authorName" type="text" class="form-control"/>
       </div>
     </div>
 
-    <!-- EMAIL FIELD-->
-    <div>
-      <label for="email" class="col-sm-2 control-label">Author Email</label>
+    <div class="form-group">
+      <label for="authorEmail" class="col-sm-2 control-label">Author Email</label>
       <div class="col-sm-10">
-        <input name="email" type="text" class="form-control"/>
+        <input name="authorEmail" type="text" class="form-control"/>
       </div>
     </div>
 
-    <!-- TITLE FIELD-->
     <div class="form-group">
       <label for="title" class="col-sm-2 control-label">Page Title</label>
       <div class="col-sm-10">
@@ -29,19 +26,21 @@
       </div>
     </div>
 
-    <!-- CONTENT FIELD-->
     <div>
-      <label for="content" class="col-sm-2 control-label">Page Content</label>
-      <div class="col-sm-10">
-        <input name="content" type="text" class="form-control"/>
-      </div>
+      <textarea name="content"></textarea>
     </div>
 
-    <!-- STATUS FIELD-->
     <div>
-      <label for="status" class="col-sm-2 control-label">Page Status</label>
+      <select name="status">
+        <option>open</option>
+        <option>closed</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="tags" class="col-sm-2 control-label">Page Tags</label>
       <div class="col-sm-10">
-        <input name="status" type="enum" class="form-control"/>
+        <input name="tags" type="text" class="form-control"/>
       </div>
     </div>
 
